@@ -1,0 +1,1 @@
+The photo1.jpg picture and README.md file must remain in addition to the /src/frontend/src/images/backgrounds directory as gatsby-config.js screams when the directory is empty, or the photo is removed. Hopefully temporary fix pending investigation.
