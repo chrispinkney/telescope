@@ -27,5 +27,4 @@ module.exports = withMDX({
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   poweredByHeader: false,
   reactStrictMode: true,
-  distDir: 'out',
 });
