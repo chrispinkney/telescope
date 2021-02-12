@@ -82,3 +82,27 @@ services:
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.prefixes=/${API_VERSION}/auth'
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
+
+  # user service
+  user:
+    container_name: 'user'
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    environment:
+      - USER_PORT
+    ports:
+      - ${USER_PORT}
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the user service at /v1/user
+      - 'traefik.http.routers.user.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/user`)'
+      # Specify the user service port
+      - 'traefik.http.services.user.loadbalancer.server.port=${USER_PORT}'
+      # Add middleware to this route to strip the /v1/user prefix
+      - 'traefik.http.middlewares.strip_user_prefix.stripprefix.prefixes=/${API_VERSION}/user'
+      - 'traefik.http.middlewares.strip_user_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.user.middlewares=strip_user_prefix'
