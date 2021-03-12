@@ -1,18 +1,18 @@
 # User Service
 
-The User Service provides a means of communication between backend and Firestore via http requests. It is intended to receive http requests containing user data (_*validated for consistency*_) which is then persisted to Google's Firestore database.
+The User Service provides a means of communication between the backend and Firestore via HTTP requests. It is intended to receive HTTP requests containing user data (_*validated for consistency*_) which is then persisted to Google's Firestore database.
 
 ## Info
 
 There are several moving pieces to this micro-service which may deceptively seem confusing upon first glance. The steps from request to persistence are as follows:
 
-1. Express is the 'conductor' of the microservice. It receives http requests from users (_i.e._ the frontend) containing data regarding a Telescope user (_see:_ `src/models/user.js`).
+1. Express is the 'conductor' of the microservice. It receives HTTP requests from users (_i.e._ the frontend) containing data regarding a Telescope user (_see:_ `src/models/user.js`).
 2. This data is validated by [celebrate](https://www.npmjs.com/package/celebrate) (_see:_ `src/models/celebrateSchema.js`) to ensure consistent integrity.
 3. Only when all data is accepted is a user object constructed (_see:_ `src/models/user.js`) and persisted to our db (_see:_ `src/routes/user.js`).
 
-Since Firestore requires unique private API keys in order to work with the production (online) version of the database, the Firestore emulator has instead been localized and is ready for dev use. This ensures that code that passes tests locally will function as intended remotely. If (_when_) changes are required, simply create your change (and accompanying unit test), and run the test runner.
+Since Firestore requires unique private API keys in order to work with the production (online) version of the database, the Firestore emulator has instead been configured and is ready for dev use. This ensures that code that passes tests locally will function as intended remotely. If (_when_) changes are required, simply create your change (and accompanying unit test), and run the test runner.
 
-Our services contain a dockerized version of the Firestore Emulator for use, but an undockerized version can also be ran (see Usage).
+Our services contain a native version of the Firestore Emulator for use, but an native version can also be run (see Usage).
 
 ### About Firestore
 

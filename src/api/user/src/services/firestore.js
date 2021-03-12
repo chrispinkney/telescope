@@ -1,7 +1,5 @@
 const admin = require('firebase-admin');
 const { logger } = require('@senecacdot/satellite');
-const path = require('path');
-require('dotenv').config({ path: path.resolve('../env.development') });
 
 // If a private key exists in env.development, run in online mode
 // else run in emulator mode
